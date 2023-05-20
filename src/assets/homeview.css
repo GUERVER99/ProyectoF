@@ -1,0 +1,12 @@
+body{
+    font-family: helvetica, sans-serif;
+    background: rgb(50, 49, 49);
+    min-width: 100%;
+    
+
+}
+
+div{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    max-width: 100%;
+}

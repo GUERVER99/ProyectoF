@@ -1,0 +1,9 @@
+a {
+    cursor: pointer;
+    position: right;
+    display: flex;
+}
+
+.app-container {
+    min-height: 350px;
+}
