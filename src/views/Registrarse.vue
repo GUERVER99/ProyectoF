@@ -59,7 +59,19 @@
         console.log()
         this.$router.push('/')
       },
+
+      getInfo(){
+        this.axios.get('http://localhost:3000/app')
+        .then((res) => {
+          console.log(res.usuario)
+        })
+        .catch((e)=>e)
+      }
     },
+
+    mounted() {
+      this.getInfo()
+    }
 
 
 
