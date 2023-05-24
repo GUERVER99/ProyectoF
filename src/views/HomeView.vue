@@ -23,8 +23,7 @@ usersStore.getAll();
         <ul v-if="users.length">
             <li v-for="user in users" :key="user.id">{{user.firstName}} {{user.lastName}}</li>
         </ul>
-        <div v-if="users.loading" class="spinner-border spinner-border-sm"></div>
-        <div v-if="users.error" class="text-danger">Usuario o contraseña incorrectos: {{users.error}}</div>
+    
     </div>
 </template>
 

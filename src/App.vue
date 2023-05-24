@@ -10,7 +10,7 @@ const authStore = useAuthStore();
     <div class="app-container bg-light">
         <nav v-show="authStore.user" class="navbar navbar-expand navbar-dark bg-dark">
             <div class="navbar-nav">
-                <RouterLink to="/" class="nav-item nav-link">INICIO</RouterLink>
+                <RouterLink to="/home" class="nav-item nav-link">INICIO</RouterLink>
                 <RouterLink :to="{name: 'eps'}" class="nav-item nav-link">LISTADO DE EPS</RouterLink>
                 <RouterLink :to="{ name: 'usuarios' }" class="nav-item nav-link">USUARIOS</RouterLink>
                 <RouterLink :to="{name:'contacto'}" class="nav-item nav-link">CONTACTENOS</RouterLink>

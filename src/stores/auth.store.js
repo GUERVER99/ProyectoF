@@ -22,12 +22,12 @@ export const useAuthStore = defineStore({
             localStorage.setItem('user', JSON.stringify(user));
 
             // redirigir a la URL anterior o por defecto a la página de inicio
-            router.push(this.returnUrl || '/');
+            router.push(this.returnUrl || '/home');
         },
         logout() {
             this.user = null;
             localStorage.removeItem('user');
-            router.push('/login');
+            router.push('/');
         }
     }
 });
