@@ -39,6 +39,7 @@
     data() {
       return {
         usuario: {
+          id: '',
           nombre: '',
           apellido: '',
           email: '',

@@ -14,6 +14,7 @@ const authStore = useAuthStore();
                 <RouterLink :to="{name: 'eps'}" class="nav-item nav-link">LISTADO DE EPS</RouterLink>
                 <RouterLink :to="{ name: 'usuarios' }" class="nav-item nav-link">USUARIOS</RouterLink>
                 <RouterLink :to="{name:'contacto'}" class="nav-item nav-link">CONTACTENOS</RouterLink>
+                <RouterLink :to="{name:'tabla_user'}" class="nav-item nav-link">TABLA USER</RouterLink>
                 <a @click="authStore.logout()" class="nav-item nav-link">CERRAR SESION</a>
             </div>
         </nav>

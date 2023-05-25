@@ -28,9 +28,12 @@ const irARegistro = () =>{
 </script>
 
 <template>
+    <div class="titulo-1">
+            <h2>BIENVENIDO</h2>
+            <h3>A la APP TU SALUD</h3>
+        </div>
     <div>
         
-        <div><h2>BIENVENIDO!</h2></div>
         <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
             <div class="form-group">
                 <label>Usuario</label>
