@@ -34,12 +34,11 @@
   </template>
   
   <script>
-  
+  import axios from 'axios'
   export default {
     data() {
       return {
         usuario: {
-          id: '',
           nombre: '',
           apellido: '',
           email: '',
@@ -62,9 +61,17 @@
       },
 
       getInfo(){
-        this.axios.get('http://localhost:3000/app')
+        axios.get('http://localhost:3001/usuarios')
         .then((res) => {
-          console.log(res.usuario)
+          console.log(res.data)
+        })
+        .catch((e)=>e)
+      },
+
+      postUserAgregar(){
+        axios.post('http://localhost:3001/registrarse')
+        .then((res) => {
+          console.log(res.data)
         })
         .catch((e)=>e)
       }

@@ -1,15 +1,9 @@
-body {
-    background-color: #ffdd90;
-    background-image: url("mi-imagen.png");
-  }
-
 .titulo-1{
   text-align: center;
   align-items: center;
   font-style: italic;
 }
 
-*{
-  height: auto;
-  width: auto;
+.app-container {
+  height: 100vh;
 }
