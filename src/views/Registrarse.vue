@@ -1,92 +1,109 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div>
+  <div>
+    <form @submit="postUserAgregar" method="POST" action="http://localhost:3001/usuarios_agregar">
+      <!-- Campos del formulario -->
+
       <h2>Formulario de Registro</h2>
-        <div>
-          <label for="nombre">Nombre:</label>
-          <input type="text" id="nombre" v-model="usuario.nombre" required>
-        </div>
-        <div>
-          <label for="apellido">Apellido:</label>
-          <input type="text" id="apellido" v-model="usuario.apellido" required>
-        </div>
-        <div>
-          <label for="email">Email:</label>
-          <input type="email" id="email" v-model="usuario.email" required>
-        </div>
-        <div>
-          <label for="password">Contraseña:</label>
-          <input type="clave" id="clave" v-model="usuario.password" required>
-        </div>
-        <div>
-          <label for="tipo_usuario">Tipo de usuario:</label>
-          <input type="tipo_usuario" id="tipo_usuario" v-model="usuario.tipo_usuario" required>
-        </div>
-        <div>
-          <button @click="registrar">Registrarse</button>
-          
-        </div>
-        <div>
-          <button @click="irALogin">Inicio</button>
-        </div>
-
+      <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" v-model="usuario.nombre" required>
+      </div>
+      <div>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" v-model="usuario.apellido" required>
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" v-model="usuario.email" required>
+      </div>
+      <div>
+        <label for="clave">Contraseña:</label>
+        <input type="password" id="clave" v-model="usuario.password" required>
+      </div>
+      <div>
+        <label for="tipo_user">Tipo de usuario:</label>
+        <input type="text" id="tipo_user" v-model="usuario.tipo_user" required>
+      </div>
+      <div>
+        <button type="submit">Registrarse</button>
+      </div>
+    </form>
+    <div>
+      <button @click="irALogin">Inicio</button>
     </div>
-  </template>
-  
-  <script>
-  import axios from 'axios'
-  export default {
-    data() {
-      return {
-        usuario: {
-          nombre: '',
-          apellido: '',
-          email: '',
-          clave: '',
-          tipo_usuario:''
-        },
+  </div>
+</template>
+
+<script>
+import axios from 'axios'
+export default {
+  data() {
+    return {
+      usuario: {
+        nombre: '',
+        apellido: '',
+        email: '',
+        password: '',
+        tipo_user: ''
+      },
+    };
+  },
+  methods: {
+    registrar() {
+      // Lógica de registro aquí
+      console.log('Registrarse', this.usuario);
+    },
+
+    irALogin() {
+      // volver al login
+      console.log()
+      this.$router.push('/')
+    },
+
+    getInfo() {
+      axios.get('http://localhost:3001/usuarios')
+        .then((res) => {
+          console.log(res.data)
+        })
+        .catch((e) => e)
+    },
+
+    postUserAgregar() {
+      if (
+    this.usuario.nombre &&
+    this.usuario.apellido &&
+    this.usuario.email &&
+    this.usuario.password &&
+    this.usuario.tipo_user
+      ){
+      const userData = {
+        nombre: this.usuario.nombre,
+        apellido: this.usuario.apellido,
+        email: this.usuario.email,
+        password: this.usuario.password,
+        tipo_user: this.usuario.tipo_user
       };
-    },
-    methods: {
-      registrar() {
-        // Lógica de registro aquí
-        console.log('Registrarse', this.usuario);
-      },
 
-      irALogin() {
-        // volver al login
-        
-        console.log()
-        this.$router.push('/')
-      },
-
-      getInfo(){
-        axios.get('http://localhost:3001/usuarios')
+      axios.post('http://localhost:3001/usuarios_agregar', userData)
         .then((res) => {
-          console.log(res.data)
+          console.log(res.data);
         })
-        .catch((e)=>e)
-      },
-
-      postUserAgregar(){
-        axios.post('http://localhost:3001/registrarse')
-        .then((res) => {
-          console.log(res.data)
-        })
-        .catch((e)=>e)
-      }
-    },
-
-    mounted() {
-      this.getInfo()
+        .catch((error) => {
+          console.error(error);
+        });
+    }else{
+      console.log('todos los campos son obligatorios');
     }
+  },
+},
 
+  mounted() {
+    this.getInfo();
+  }
+}
+</script>
 
-
-  };
-
-  </script>
-
-  <style>
+<style>
 @import '@/assets/homeview.css';
 </style>
