@@ -1,28 +1,46 @@
 <script setup>
-import { Form, Field } from 'vee-validate';
-import * as Yup from 'yup';
+import {  Field } from 'vee-validate';
+import axios from 'axios';
 const router = useRouter()
-
-import { useAuthStore } from '@/stores';
 import { useRouter } from 'vue-router';
+import { reactive } from 'vue';
 
-const schema = Yup.object().shape({
-    username: Yup.string().required('Username is required'),
-    password: Yup.string().required('Password is required')
-});
-
-function onSubmit(values, { setErrors }) {
-    const authStore = useAuthStore();
-    const { username, password } = values;
-
-    return authStore.login(username, password)
-        .catch(error => setErrors({ apiError: error }));
-}
 
 const irARegistro = () =>{
     console.log('registro')
     router.push('/registrarse')
 }
+
+const datos = reactive({
+    email: '',
+    clave: ''
+})
+
+function irAlogin2() {
+  axios.post('http://localhost:3001/login', datos)
+    .then((response) => {
+      // Verificar la información recibida en la respuesta
+      if (response.data && response.data.emailVerified) {
+        // El correo electrónico ha sido verificado correctamente, redirigir al usuario al inicio de la aplicación
+        window.location.href = '/inicio';
+      } else {
+        // El correo electrónico no ha sido verificado, mostrar un mensaje de error al usuario
+        mostrarMensajeError('El correo electrónico no ha sido verificado');
+      }
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+}
+
+function mostrarMensajeError(mensaje) {
+  // Puedes utilizar una librería o implementar tu propia lógica para mostrar mensajes de error en la interfaz de usuario
+  // Aquí se muestra un ejemplo simple utilizando el método alert
+  alert(mensaje);
+}
+
+
+
 
 
 </script>
@@ -32,31 +50,30 @@ const irARegistro = () =>{
             <h2>BIENVENIDO</h2>
             <h3>A la APP TU SALUD</h3>
         </div>
-    <div>
+    
+        <div class="contenedor">
         
-        <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
             <div class="form-group">
                 <label>Usuario</label>
-                <Field name="username" type="text" class="form-control" :class="{ 'is-invalid': errors.username }" />
-                <div class="invalid-feedback">{{errors.username}}</div>
+                <Field name="email" type="text" class="form-control" v-model="datos.email" />
+               
             </div>            
             <div class="form-group">
                 <label>Contraseña</label>
-                <Field name="password" type="password" class="form-control" :class="{ 'is-invalid': errors.password }" />
-                <div class="invalid-feedback">{{errors.password}}</div>
+                <Field name="clave" type="password" class="form-control"  v-model="datos.clave"/>
+            
             </div>
                    
-            <div class="form-group">
-                <button class="btn btn-primary" :disabled="isSubmitting">
-                    <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+            <div class="aceptar">
+                <button class="btn btn-primary" @click="irAlogin2">
+                    
                     Aceptar
                 </button>
             </div>
-            <div v-if="errors.apiError" class="alert alert-danger mt-3 mb-0">{{errors.apiError}}</div>
             
-        </Form>
         
-        <div>
+    
+        <div class="registro">
             <div>
                 <button @click="irARegistro">Registrarse</button>
                 </div>

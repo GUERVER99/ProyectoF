@@ -8,10 +8,6 @@ import Vueaxios from 'vue-axios';
 
 
 
-// configurar backend falso
-import { fakeBackend } from './helpers';
-fakeBackend();
-
 const app = createApp(App);
 app.use(Vueaxios,axios);
 

@@ -1,34 +1,34 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
-    <form @submit="postUserAgregar" method="POST" action="http://localhost:3001/usuarios_agregar">
+    
       <!-- Campos del formulario -->
 
       <h2>Formulario de Registro</h2>
       <div>
-        <label for="nombre">Nombre:</label>
+        <label :class="{ 'error-label': usuario.nombre === '' }" for="nombre">Nombre:</label>
         <input type="text" id="nombre" v-model="usuario.nombre" required>
       </div>
       <div>
-        <label for="apellido">Apellido:</label>
+        <label :class="{ 'error-label': usuario.apellido === '' }" for="apellido">Apellido:</label>
         <input type="text" id="apellido" v-model="usuario.apellido" required>
       </div>
       <div>
-        <label for="email">Email:</label>
+        <label :class="{ 'error-label': usuario.email === '' }" for="email">Email:</label>
         <input type="email" id="email" v-model="usuario.email" required>
       </div>
       <div>
-        <label for="clave">Contraseña:</label>
+        <label :class="{ 'error-label': usuario.clave === '' }" for="clave">Contraseña:</label>
         <input type="password" id="clave" v-model="usuario.password" required>
       </div>
       <div>
-        <label for="tipo_user">Tipo de usuario:</label>
+        <label :class="{ 'error-label': usuario.nombre === '' }" for="tipo_user">Tipo de usuario:</label>
         <input type="text" id="tipo_user" v-model="usuario.tipo_user" required>
       </div>
       <div>
-        <button type="submit">Registrarse</button>
+        <button @click="postUserAgregar">Registrarse</button>
       </div>
-    </form>
+    
     <div>
       <button @click="irALogin">Inicio</button>
     </div>
@@ -71,11 +71,11 @@ export default {
 
     postUserAgregar() {
       if (
-    this.usuario.nombre &&
-    this.usuario.apellido &&
-    this.usuario.email &&
-    this.usuario.password &&
-    this.usuario.tipo_user
+    this.usuario.nombre !== '' &&
+    this.usuario.apellido !== ''&&
+    this.usuario.email !== ''&&
+    this.usuario.password !== ''&&
+    this.usuario.tipo_user !==''
       ){
       const userData = {
         nombre: this.usuario.nombre,
@@ -87,13 +87,15 @@ export default {
 
       axios.post('http://localhost:3001/usuarios_agregar', userData)
         .then((res) => {
+          this.$router.push('/');
           console.log(res.data);
         })
         .catch((error) => {
           console.error(error);
         });
     }else{
-      console.log('todos los campos son obligatorios');
+      console.log();
+      alert('todos los campos son obligatorios');
     }
   },
 },
